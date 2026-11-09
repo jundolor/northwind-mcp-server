@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+insert_statements.txt
+northwind_seed.db.py
+northwind_list.py
