@@ -4,9 +4,26 @@ import sqlite3
 import os
 from mcp.server.transport_security import TransportSecuritySettings
 
-mcp = MCPServer("Northwind MCP Server")
+INSTRUCTIONS = (
+    "Read-only access to the Northwind sample database (fictional customers, "
+    "suppliers, products and orders). Use list_* tools to browse and get_* tools "
+    "to fetch one record. List tools return at most 100 rows per call; "
+)
+
+mcp = MCPServer("Northwind MCP Server", instructions=INSTRUCTIONS)
 DB_PATH  = Path(__file__).parent/ "northwind.db"
 MAX_LIMIT = 100
+ABOUT = """\
+Northwind MCP Server (read-only)
+
+Data: the Northwind sample database, a fictional trading company with
+orders dated 1996-1998. It is sample data, not a real business.
+Tools: list_* tools browse records, get_* tools return one record.
+Limits: list tools cap results (default 50, maximum 100) and support paging.
+Attribution: Northwind sample data originally by Microsoft; see the
+repository README for the source and license.
+"""
+
 
 #apply pagination
 def _page(limit: int, offset: int) -> tuple[int, int]:
@@ -299,6 +316,10 @@ def greeting(name: str) ->str:
     """Greet and orient consumer"""
     return f"Hello {name}, welcome to the Northwind MCP Server. This provides list of tools available to get information from Northwind."
 
+@mcp.resource("northwind://about")
+def about()->str:
+    """Overview of the Northwind data, the available tools, limits and attribution."""
+    return ABOUT
 
 # --- Deployment: an ASGI app, only built when ALLOWED_HOSTS is set -------------
 _hosts = [h.strip() for h in os.environ.get("ALLOWED_HOSTS", "").split(",") if h.strip()]
