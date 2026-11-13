@@ -4,3 +4,6 @@ The server code in this repository is released under MIT License.
 
 ## Status
 Read-only. No authentication is required at the moment.
+
+
+[![M8ven Score](https://m8ven.ai/badge/mcp/jundolor-northwind-mcp-server-10ahuf?v=a27be52bb4d3fb1f32d5e77fec981bd7)](https://m8ven.ai/mcp/jundolor-northwind-mcp-server-10ahuf?s=readme)
